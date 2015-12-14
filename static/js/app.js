@@ -10,28 +10,28 @@ jQuery(document).ready(function($){
 
         evt.preventDefault();
 
-        $.ajax('/consulta', {
+        $.ajax('/find', {
             'data': {'nif': nif},
             'success': function(response, stauts, jqXHR){
 
-                var districte = response.districte;
-                var seccio = response.seccio;
-                var mesa = response.mesa;
-                var colegi = response.colegi;
-                var direccio = response.direccio;
+                var districte = response.district;
+                var seccio = response.section;
+                var mesa = response.table;
+                var colegi = response.school;
+                var direccio = response.address;
 
-                $("#districte").html(districte);
-                $("#seccio").html(seccio);
-                $("#mesa").html(mesa);
-                $("#colegi").html(colegi);
-                $("#direccio").html(direccio);
+                $("#district").html(districte);
+                $("#section").html(seccio);
+                $("#table").html(mesa);
+                $("#school").html(colegi);
+                $("#address").html(direccio);
 
                 $table.show();
 
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 var error = $.parseJSON(jqXHR.responseText);
-                $("#error").html(error.desc);
+                $("#error").html(error.error_desc);
                 $errors.show();
             },
 
