@@ -1,12 +1,14 @@
 jQuery(document).ready(function($){
 
+    var $table = $("#result");
+    var $errors = $("#errors");
+    var $nif = $("#nif");
     $("#cens").submit(function(evt){
-        var $table = $("#result");
-        var $errors = $("#errors");
+
         $table.hide();
         $errors.hide();
 
-        var nif = $("#nif").val();
+        var nif = $nif.val();
 
         evt.preventDefault();
 
@@ -37,6 +39,13 @@ jQuery(document).ready(function($){
 
         });
 
+    });
+
+
+    $("#delete").on('click', function(ev){
+        ev.preventDefault();
+        $table.hide();
+        $nif.val('')
     });
 
 });
