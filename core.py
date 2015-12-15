@@ -52,12 +52,6 @@ class Voter:
             res = regex.search(text)
             return int(res.group(1).strip()) if res else None
 
-        def _extract_letter(li):
-            regex = compile('(.*): ([a-zA-Z]+)')
-            text = li.text
-            res = regex.search(text)
-            return res.group(2).strip() if res else None
-
         def _extract_string(li):
             regex = compile('(.*):(.*)')
             text = li.text
@@ -68,7 +62,7 @@ class Voter:
 
         district = _extract_number(li_district)
         section = _extract_number(li_section)
-        table = _extract_letter(li_table)
+        table = _extract_string(li_table)
         school = _extract_string(li_school)
         address = _extract_string(li_address)
 
