@@ -21,6 +21,6 @@ export PYTHONPATH=${PROJECT_DIR}:${PYTHONPATH}
 
 test -d ${LOGDIR} || mkdir -p ${LOGDIR}
 
-exec gunicorn app:app -w ${NUM_WORKERS} -b 127.0.0.1:8080\
+exec gunicorn app:app -w ${NUM_WORKERS} -b 127.0.0.1:5000\
     --user=${USER} --group=${GROUP}\
     --log-level=info --log-file=${LOGFILE} 2>> ${LOGERRFILE}
