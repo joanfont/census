@@ -4,7 +4,7 @@ export WORKON_HOME=~/.virtualenvs/
 source /usr/local/bin/virtualenvwrapper.sh
 workon electoral-census
 
-PROJET_DIR=/opt/electoral-census/
+PROJECT_DIR=/opt/electoral-census/
 
 USER=root
 GROUP=root
