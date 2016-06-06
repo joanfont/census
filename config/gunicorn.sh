@@ -1,17 +1,16 @@
 #!/bin/bash
+. /home/census/virtualenv/bin/activate
 
-export WORKON_HOME=~/.virtualenvs/
-source /usr/local/bin/virtualenvwrapper.sh
-workon electoral-census
+WSGI_APPLICATION=app:app
+BIND_HOST=127.0.0.1
+BIND_PORT=5000
+PROJECT_DIR=/home/census/src
+USER=census
+GROUP=census
+LOG_FILE=${PROJECT_DIR}/log/gunicorn.log
+ERROR_LOG_FILE=${PROJECT_DIR}/log/gunicorn_err.log
 
-PROJECT_DIR=/opt/electoral-census/
-
-USER=root
-GROUP=root
-LOGFILE=${PROJECT_DIR}/log/gunicorn.log
-LOGERRFILE=${PROJECT_DIR}/log/gunicorn_err.log
-
-LOGDIR=$(dirname $LOGFILE)
+LOGDIR=$(dirname ${LOG_FILE})
 
 NUM_WORKERS=3
 TIMEOUT=60
@@ -21,6 +20,6 @@ export PYTHONPATH=${PROJECT_DIR}:${PYTHONPATH}
 
 test -d ${LOGDIR} || mkdir -p ${LOGDIR}
 
-exec gunicorn app:app -w ${NUM_WORKERS} -b 127.0.0.1:5000\
+exec gunicorn ${WSGI_APPLICATION} -w ${NUM_WORKERS} -b ${BIND_HOST}:${BIND_PORT}\
     --user=${USER} --group=${GROUP}\
-    --log-level=info --log-file=${LOGFILE} 2>> ${LOGERRFILE}
+    --log-level=info --log-file=${LOG_FILE} 2>> ${ERROR_LOG_FILE}
