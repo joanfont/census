@@ -70,10 +70,21 @@ class Voter:
 
 
 class ElectoralCensus:
-    URL = 'http://cens.palmademallorca.es/cens/dinamic/Consulta.htm'
+
+    BASE_URL = 'http://cens.palmademallorca.es'
+    URL = '{base}/cens/dinamic/Consulta.htm'.format(base=BASE_URL)
 
     DEFAULT_POST_PARAMS = {
-        'form_name': 'formcenso'
+        'form_name': 'formcenso',
+        'consultar': 'Consultar',
+    }
+
+    DEFAULT_HEADERS = {
+        'Origin': BASE_URL,
+        'Referer': URL,
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36',
+        'Accept-Language': 'es-ES,es;q=0.8',
+
     }
 
     @classmethod
@@ -102,7 +113,7 @@ class ElectoralCensus:
             'nifPersona': nif,
         })
 
-        response = requests.post(cls.URL, post_params)
+        response = requests.post(cls.URL, post_params, headers=cls.DEFAULT_HEADERS)
         html = response.text
         soup = BeautifulSoup(html, 'html.parser')
 
