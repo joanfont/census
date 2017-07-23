@@ -71,7 +71,7 @@ class Voter:
 
 class ElectoralCensus:
 
-    BASE_URL = 'http://cens.palmademallorca.es'
+    BASE_URL = 'https://cens.palmademallorca.es'
     URL = '{base}/cens/dinamic/Consulta.htm'.format(base=BASE_URL)
 
     DEFAULT_POST_PARAMS = {
