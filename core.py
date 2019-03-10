@@ -71,12 +71,12 @@ class Voter:
 
 class ElectoralCensus:
 
-    BASE_URL = 'https://cens.palmademallorca.es'
-    URL = '{base}/cens/dinamic/Consulta.htm'.format(base=BASE_URL)
+    BASE_URL = 'https://cens.palma.cat'
+    URL = '{base}/portal/PALMA/cens/cens_principal1.jsp?codResi=1'.format(base=BASE_URL)
 
-    DEFAULT_POST_PARAMS = {
+    DEFAULT_PARAMS = {
         'form_name': 'formcenso',
-        'consultar': 'Consultar',
+        'seccion': 'Consulta.jsp',
     }
 
     DEFAULT_HEADERS = {
@@ -108,12 +108,12 @@ class ElectoralCensus:
 
     @classmethod
     def get_soup(cls, nif):
-        post_params = copy(cls.DEFAULT_POST_PARAMS)
-        post_params.update({
+        url_params = copy(cls.DEFAULT_PARAMS)
+        url_params.update({
             'nifPersona': nif,
         })
 
-        response = requests.post(cls.URL, post_params, headers=cls.DEFAULT_HEADERS)
+        response = requests.post(cls.URL, params=url_params, headers=cls.DEFAULT_HEADERS)
         html = response.text
         soup = BeautifulSoup(html, 'html.parser')
 
