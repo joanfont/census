@@ -1,0 +1,11 @@
+version: '3.3'
+
+services:
+  app:
+    image: joanfont/electoral-census
+    build: .
+    command: ["app:app", "-b", "0.0.0.0:8080", "--reload"]
+    volumes:
+      - ./:/code
+    ports:
+      - 8080:8080
