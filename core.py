@@ -113,7 +113,7 @@ class ElectoralCensus:
             'nifPersona': nif,
         })
 
-        response = requests.post(cls.URL, params=url_params, headers=cls.DEFAULT_HEADERS)
+        response = requests.get(cls.URL, params=url_params, headers=cls.DEFAULT_HEADERS)
         html = response.text
         soup = BeautifulSoup(html, 'html.parser')
 
