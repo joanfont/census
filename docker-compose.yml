@@ -1,11 +1,14 @@
-version: '3.3'
+version: '3.7'
 
 services:
-  app:
-    image: joanfont/electoral-census
-    build: .
-    command: ["app:app", "-b", "0.0.0.0:8080", "--reload"]
+  api:
+    image: joanfont/census-api
+    build: api
+    command: ["--reload"]
+    env_file:
+      - api/.env.sample
+      - api/.env
     volumes:
-      - ./:/code
+      - ./api:/code
     ports:
-      - 8080:8080
+      - 8000:8000
