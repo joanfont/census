@@ -6,7 +6,7 @@ import httpx
 class Client(ABC):
 
     @abstractmethod
-    async def find_by_nif(self, nif) -> str:
+    async def find_by_nif(self, nif: str) -> str:
         pass
 
 
@@ -17,20 +17,20 @@ class Palma(Client):
     def __init__(self, http_client=None):
         self.http_client = http_client or httpx.AsyncClient()
 
-    async def find_by_nif(self, nif):
+    async def find_by_nif(self, nif: str) -> str:
         params = self._build_params(nif)
         headers = self._build_headers()
         async with self.http_client as client:
             return await client.get(self.URL, params=params, headers=headers)
 
-    def _build_params(self, nif):
+    def _build_params(self, nif) -> dict:
         return {
             'form_name': 'formcenso',
             'seccion': 'Consulta.jsp',
             'nifPersona': nif
         }
 
-    def _build_headers(self):
+    def _build_headers(self) -> dict:
         return {
             'Origin': self.BASE_URL,
             'Referer': self.URL,

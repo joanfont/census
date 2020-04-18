@@ -3,7 +3,10 @@ version: '3.7'
 services:
   api:
     image: joanfont/census-api
-    build: api
+    build:
+      context: api
+      args:
+        BUILD_ENV: dev
     command: ["--reload"]
     env_file:
       - api/.env.sample
